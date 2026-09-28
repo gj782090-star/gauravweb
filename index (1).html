@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUXE — Fashion Store</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;color:#111}a{text-decoration:none;color:inherit}
+.top{background:#111;color:#fff;text-align:center;padding:10px;font-size:12px;letter-spacing:1px}
+nav{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid #eee;position:sticky;top:0;background:#fff;z-index:10}
+.logo{font-size:28px;font-weight:800;letter-spacing:5px}.links{display:flex;gap:28px;font-size:14px;font-weight:bold}
+.actions button{border:0;background:none;font-size:20px;margin-left:14px;cursor:pointer;position:relative}.count{position:absolute;background:#111;color:#fff;border-radius:50%;font-size:9px;width:17px;height:17px;right:-5px;top:-6px}
+.hero{min-height:650px;background:linear-gradient(90deg,rgba(0,0,0,.65),transparent),url("https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1800&q=85") center/cover;display:flex;align-items:center;color:#fff;padding:7%}
+.hero small{letter-spacing:4px}.hero h1{font:400 clamp(55px,8vw,105px)/.9 Georgia;margin:22px 0}.hero p{max-width:480px;line-height:1.7;color:#eee;margin-bottom:30px}.btn{display:inline-block;padding:15px 25px;background:#fff;color:#111;border:0;font-weight:bold;cursor:pointer}
+.section{max-width:1400px;margin:auto;padding:80px 5%}.heading{text-align:center;margin-bottom:45px}.heading span{color:#b77b4b;letter-spacing:3px;font-size:12px}.heading h2{font:400 52px Georgia;margin-top:10px}
+.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.cat{height:430px;position:relative;overflow:hidden;cursor:pointer}.cat img{width:100%;height:100%;object-fit:cover;transition:.5s}.cat:hover img{transform:scale(1.06)}.cat div{position:absolute;inset:0;display:flex;align-items:end;padding:30px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.7))}.cat h3{font:400 32px Georgia}
+.filters{text-align:center;margin-bottom:30px}.filter{padding:10px 20px;border:1px solid #ddd;background:#fff;margin:4px;cursor:pointer}.filter.active,.filter:hover{background:#111;color:#fff}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}.image{height:410px;position:relative;overflow:hidden;background:#eee;cursor:pointer}.image img{width:100%;height:100%;object-fit:cover;transition:.5s}.product:hover img{transform:scale(1.05)}.badge{position:absolute;top:12px;left:12px;background:#fff;padding:7px 10px;font-size:10px;z-index:2}.heart{position:absolute;right:12px;top:12px;border:0;border-radius:50%;width:38px;height:38px;background:#fff;z-index:3;font-size:18px;cursor:pointer}.quick{position:absolute;bottom:12px;left:12px;right:12px;padding:14px;border:0;background:#fff;font-weight:bold;transform:translateY(70px);transition:.3s;cursor:pointer}.product:hover .quick{transform:none}.info{padding:16px 2px}.info small{color:#888;text-transform:uppercase;letter-spacing:1px}.info h3{font-size:14px;font-weight:500;margin:8px 0}.price{font-weight:bold}.old{text-decoration:line-through;color:#999;font-weight:normal;margin-left:7px}
+.promo{display:grid;grid-template-columns:1fr 1fr;background:#f7f3ed}.promo img{width:100%;height:100%;object-fit:cover}.promo-text{padding:70px;display:flex;flex-direction:column;justify-content:center}.promo-text span{color:#b77b4b;letter-spacing:3px;font-size:12px}.promo-text h2{font:400 62px Georgia;margin:20px 0}.promo-text p{color:#777;line-height:1.7;margin-bottom:25px}.dark{background:#111;color:#fff}
+.news{background:#111;color:#fff;text-align:center;padding:75px 20px}.news h2{font:400 42px Georgia;margin-bottom:12px}.news p{color:#aaa;margin-bottom:25px}.news form{max-width:500px;margin:auto;display:flex}.news input{flex:1;padding:16px;border:0}.news button{border:0;padding:0 25px;background:#b77b4b;color:#fff;font-weight:bold}
+footer{background:#090909;color:#fff;padding:60px 5% 25px}.foot{max-width:1400px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}.foot p,.foot li{color:#888;font-size:13px;line-height:1.8}.foot ul{list-style:none}.copy{max-width:1400px;margin:40px auto 0;border-top:1px solid #222;padding-top:20px;color:#666;font-size:11px}
+.overlay{position:fixed;inset:0;background:#0008;z-index:20;display:none}.overlay.show{display:block}.cart{position:fixed;right:-430px;top:0;width:min(430px,100%);height:100vh;background:#fff;z-index:30;transition:.35s;display:flex;flex-direction:column}.cart.open{right:0}.cart-head{padding:25px;border-bottom:1px solid #eee;display:flex;justify-content:space-between}.cart-head button{border:0;background:none;font-size:25px}.cart-items{flex:1;padding:20px;overflow:auto}.cart-item{display:grid;grid-template-columns:75px 1fr auto;gap:12px;border-bottom:1px solid #eee;padding-bottom:18px;margin-bottom:18px}.cart-item img{width:75px;height:90px;object-fit:cover}.cart-item h4{font-size:13px}.cart-item p{font-size:12px;color:#777;margin:8px 0}.qty button{width:24px;height:24px;background:#fff;border:1px solid #ddd}.remove{border:0;background:none;color:#888;font-size:11px}.cart-foot{padding:25px;border-top:1px solid #eee}.sub{display:flex;justify-content:space-between;font-weight:bold;margin-bottom:18px}.checkout{width:100%;padding:16px;background:#111;color:#fff;border:0;font-weight:bold}
+.modal{position:fixed;inset:0;background:#0009;z-index:40;display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-box{max-width:900px;width:100%;background:#fff;display:grid;grid-template-columns:1fr 1fr;position:relative}.modal-img{min-height:580px}.modal-img img{width:100%;height:100%;object-fit:cover}.modal-text{padding:50px;display:flex;flex-direction:column;justify-content:center}.modal-text h2{font:400 42px Georgia;margin:15px 0}.modal-text p{color:#777;line-height:1.7;margin:20px 0}.close{position:absolute;right:15px;top:15px;border:0;border-radius:50%;width:38px;height:38px;background:#fff;font-size:22px;z-index:2}.sizes{display:flex;gap:7px;margin:10px 0 25px}.sizes button{background:#fff;border:1px solid #ddd;padding:10px 14px}.sizes button.selected{background:#111;color:#fff}
+.search{position:fixed;inset:0;background:#fff;z-index:50;padding:90px 8%;display:none}.search.show{display:block}.search input{width:100%;font-size:28px;padding:18px 0;border:0;border-bottom:2px solid #111;outline:0}
+.toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,100px);background:#111;color:#fff;padding:14px 22px;opacity:0;transition:.3s;z-index:60}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){.links{display:none}.products{grid-template-columns:repeat(2,1fr)}.categories{grid-template-columns:1fr}.foot{grid-template-columns:1fr 1fr}.promo{grid-template-columns:1fr}.promo img{height:400px}.modal-box{grid-template-columns:1fr}.modal-img{min-height:350px}}
+@media(max-width:550px){nav{padding:0 18px}.products{grid-template-columns:1fr 1fr;gap:12px}.image{height:280px}.section{padding:60px 18px}.heading h2{font-size:40px}.hero{min-height:580px;padding:25px}.hero h1{font-size:58px}.promo-text{padding:45px 25px}.promo-text h2{font-size:48px}.foot{grid-template-columns:1fr}.news form{flex-direction:column;gap:8px}.news input,.news button{height:50px}.modal-text{padding:30px}}
+</style>
+</head>
+<body>
+
+<div class="top">FREE SHIPPING ON ORDERS OVER $100 — NEW COLLECTION JUST DROPPED</div>
+
+<nav>
+  <a class="logo" href="#">LUXE</a>
+  <div class="links">
+    <a href="#new">New In</a><a href="#women">Women</a><a href="#men">Men</a><a href="#accessories">Accessories</a><a href="#sale">Sale</a>
+  </div>
+  <div class="actions">
+    <button onclick="openSearch()">⌕</button>
+    <button onclick="toast('Wishlist feature ready!')">♡</button>
+    <button onclick="openCart()">🛒<span class="count" id="count">0</span></button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <small>AUTUMN / WINTER 2026</small>
+    <h1>Dress<br>Your Story.</h1>
+    <p>Discover effortless fashion designed for modern living. Premium essentials, statement pieces and timeless styles curated for you.</p>
+    <a href="#new" class="btn">SHOP NEW COLLECTION</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="heading"><span>EXPLORE</span><h2>Shop By Category</h2></div>
+  <div class="categories">
+    <div class="cat" onclick="filter('Women')"><img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1000&q=80"><div><h3>Women</h3></div></div>
+    <div class="cat" onclick="filter('Men')"><img src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?auto=format&fit=crop&w=1000&q=80"><div><h3>Men</h3></div></div>
+    <div class="cat" onclick="filter('Accessories')"><img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1000&q=80"><div><h3>Accessories</h3></div></div>
+  </div>
+</section>
+
+<section class="section" id="new">
+  <div class="heading"><span>OUR COLLECTION</span><h2>New Arrivals</h2></div>
+  <div class="filters">
+    <button class="filter active" onclick="filter('All',this)">All</button>
+    <button class="filter" onclick="filter('Women',this)">Women</button>
+    <button class="filter" onclick="filter('Men',this)">Men</button>
+    <button class="filter" onclick="filter('Accessories',this)">Accessories</button>
+  </div>
+  <div class="products" id="products"></div>
+</section>
+
+<section class="section">
+  <div class="promo">
+    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=85">
+    <div class="promo-text">
+      <span>THE ESSENTIALS EDIT</span>
+      <h2>Less,<br>but Better.</h2>
+      <p>A curated collection of timeless pieces designed to work together effortlessly. Clean silhouettes, premium fabrics and understated details.</p>
+      <div><a class="btn dark" href="#new">SHOP THE EDIT</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="news">
+  <h2>Join The LUXE Club</h2>
+  <p>Sign up for early access, exclusive offers and style inspiration.</p>
+  <form onsubmit="subscribe(event)"><input type="email" placeholder="Your email address" required><button>SUBSCRIBE</button></form>
+</section>
+
+<footer>
+  <div class="foot">
+    <div><div class="logo">LUXE</div><p>Modern fashion for people who believe style should feel effortless.</p></div>
+    <div><h4>SHOP</h4><ul><li>New Arrivals</li><li>Women</li><li>Men</li><li>Accessories</li></ul></div>
+    <div><h4>HELP</h4><ul><li>Contact Us</li><li>Shipping & Returns</li><li>Size Guide</li><li>FAQ</li></ul></div>
+    <div><h4>FOLLOW</h4><ul><li>Instagram</li><li>Facebook</li><li>Pinterest</li><li>TikTok</li></ul></div>
+  </div>
+  <div class="copy">© 2026 LUXE. All rights reserved.</div>
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<aside class="cart" id="cart">
+  <div class="cart-head"><h2>Your Cart</h2><button onclick="closeCart()">×</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot"><div class="sub"><span>Subtotal</span><span id="subtotal">$0.00</span></div><button class="checkout" onclick="checkout()">CHECKOUT</button></div>
+</aside>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <div class="modal-img"><img id="mImg"></div>
+    <div class="modal-text">
+      <small id="mCat"></small>
+      <h2 id="mTitle"></h2>
+      <strong id="mPrice"></strong>
+      <p id="mDesc"></p>
+      <b>SELECT SIZE</b>
+      <div class="sizes"><button onclick="size(this)">XS</button><button onclick="size(this)">S</button><button onclick="size(this)">M</button><button onclick="size(this)">L</button><button onclick="size(this)">XL</button></div>
+      <button class="btn dark" id="mAdd">ADD TO CART</button>
+    </div>
+  </div>
+</div>
+
+<div class="search" id="search">
+  <button class="close" onclick="closeSearch()">×</button>
+  <h2 style="font:400 42px Georgia;margin-bottom:35px">Search</h2>
+  <input id="searchInput" placeholder="Search products..." oninput="searchProducts(this.value)">
+  <div id="results" style="margin-top:25px"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const products=[
+{id:1,name:"Satin Slip Dress",category:"Women",price:89,old:120,badge:"NEW",image:"https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=85",desc:"A timeless satin silhouette designed with a soft drape and elegant finish."},
+{id:2,name:"Relaxed Linen Shirt",category:"Men",price:65,old:null,badge:"NEW",image:"https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=900&q=85",desc:"Lightweight linen shirt with a relaxed fit, perfect for warm days."},
+{id:3,name:"Leather Shoulder Bag",category:"Accessories",price:149,old:180,badge:"SALE",image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=85",desc:"Minimal leather shoulder bag with refined hardware and spacious interior."},
+{id:4,name:"Oversized Wool Coat",category:"Women",price:199,old:null,badge:"NEW",image:"https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&q=85",desc:"A premium wool coat featuring an oversized modern silhouette."},
+{id:5,name:"Classic Tailored Blazer",category:"Men",price:159,old:195,badge:"SALE",image:"https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=900&q=85",desc:"A sharply tailored blazer designed for work and weekend dressing."},
+{id:6,name:"Minimal Gold Watch",category:"Accessories",price:129,old:null,badge:"NEW",image:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=900&q=85",desc:"Elegant minimalist watch with a clean dial and polished finish."},
+{id:7,name:"Pleated Midi Skirt",category:"Women",price:79,old:null,badge:"NEW",image:"https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",desc:"Flowing pleated midi skirt designed for effortless everyday style."},
+{id:8,name:"Premium Knit Sweater",category:"Men",price:95,old:115,badge:"SALE",image:"https://images.unsplash.com/photo-1610652492500-ded49ceeb378?auto=format&fit=crop&w=900&q=85",desc:"Soft premium knit sweater with a relaxed contemporary fit."}
+];
+let cart=[],current=null;
+
+function render(list=products){
+ document.getElementById("products").innerHTML=list.length?list.map(p=>`
+ <article class="product">
+  <div class="image" onclick="openProduct(${p.id})">
+   <span class="badge">${p.badge}</span>
+   <button class="heart" onclick="event.stopPropagation();this.classList.toggle('liked');this.textContent=this.classList.contains('liked')?'♥':'♡'">♡</button>
+   <img src="${p.image}" alt="${p.name}">
+   <button class="quick" onclick="event.stopPropagation();add(${p.id})">QUICK ADD +</button>
+  </div>
+  <div class="info"><small>${p.category}</small><h3>${p.name}</h3><div class="price">$${p.price.toFixed(2)} ${p.old?`<span class="old">$${p.old.toFixed(2)}</span>`:""}</div></div>
+ </article>`).join(""):`<p style="grid-column:1/-1;text-align:center;padding:50px;color:#777">No products found.</p>`;
+}
+function filter(cat,btn){
+ if(btn){document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active")}
+ render(cat==="All"?products:products.filter(p=>p.category===cat));
+ document.getElementById("new").scrollIntoView({behavior:"smooth"});
+}
+function add(id){let p=products.find(x=>x.id===id),x=cart.find(x=>x.id===id);x?x.qty++:cart.push({...p,qty:1});update();toast(p.name+" added to cart");openCart()}
+function update(){
+ document.getElementById("count").textContent=cart.reduce((a,x)=>a+x.qty,0);
+ document.getElementById("cartItems").innerHTML=cart.length?cart.map(x=>`
+ <div class="cart-item"><img src="${x.image}"><div><h4>${x.name}</h4><p>$${x.price.toFixed(2)}</p><div class="qty"><button onclick="change(${x.id},-1)">−</button> ${x.qty} <button onclick="change(${x.id},1)">+</button></div></div><button class="remove" onclick="removeItem(${x.id})">Remove</button></div>`).join(""):`<div style="text-align:center;color:#888;padding:70px 10px">Your cart is empty 🛍</div>`;
+ document.getElementById("subtotal").textContent="$"+cart.reduce((a,x)=>a+x.price*x.qty,0).toFixed(2);
+}
+function change(id,n){let x=cart.find(x=>x.id===id);if(!x)return;x.qty+=n;if(x.qty<1)cart=cart.filter(y=>y.id!==id);update()}
+function removeItem(id){cart=cart.filter(x=>x.id!==id);update()}
+function openCart(){document.getElementById("cart").classList.add("open");document.getElementById("overlay").classList.add("show")}
+function closeCart(){document.getElementById("cart").classList.remove("open");document.getElementById("overlay").classList.remove("show")}
+function openProduct(id){current=products.find(x=>x.id===id);mImg.src=current.image;mCat.textContent=current.category;mTitle.textContent=current.name;mPrice.textContent="$"+current.price.toFixed(2);mDesc.textContent=current.desc;modal.classList.add("show")}
+function closeModal(){modal.classList.remove("show")}
+mAdd.onclick=()=>{add(current.id);closeModal()}
+function size(b){document.querySelectorAll(".sizes button").forEach(x=>x.classList.remove("selected"));b.classList.add("selected")}
+function openSearch(){search.classList.add("show");searchInput.focus()}
+function closeSearch(){search.classList.remove("show")}
+function searchProducts(q){q=q.toLowerCase();let r=products.filter(p=>p.name.toLowerCase().includes(q)||p.category.toLowerCase().includes(q));results.innerHTML=q?r.map(p=>`<div onclick="closeSearch();openProduct(${p.id})" style="padding:15px;border-bottom:1px solid #eee;cursor:pointer"><b>${p.name}</b><br><small>${p.category} · $${p.price}</small></div>`).join(""):""}
+function subscribe(e){e.preventDefault();e.target.reset();toast("Thanks for subscribing!")}
+function checkout(){toast(cart.length?"Checkout demo — connect your payment gateway here.":"Your cart is empty.")}
+let timer;function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(timer);timer=setTimeout(()=>t.classList.remove("show"),2500)}
+render();update();
+</script>
+</body>
+</html>
